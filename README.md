@@ -1,16 +1,30 @@
 # screenshot-mac2ubuntu
 
-A `/shot` skill for Claude Code, Gemini CLI, and Codex that analyzes the latest screenshot synced from Mac to Ubuntu.
+A `/shot` skill for Claude Code, Gemini CLI, and Codex that analyzes the latest screenshot.
+
+Works on **macOS and Ubuntu**.
 
 ## Overview
 
-1. Take a screenshot on Mac → automatically synced to `~/Screenshots` on Ubuntu
-2. Run `/shot` in any supported CLI → the AI analyzes the screenshot
+- **Mac**: Take a screenshot → `/shot` analyzes it directly
+- **Ubuntu**: Screenshots synced from Mac → `/shot` analyzes the latest one
 
 ## Prerequisites
 
-- Screenshots are synced from Mac to `~/Screenshots` on Ubuntu
-- See [docs/mac-sync-setup.md](docs/mac-sync-setup.md) for sync configuration
+Screenshots must be saved to `~/Screenshots`.
+
+### Mac — verify and configure the save location
+
+Press `Command + Shift + 5` → click **Options** in the toolbar → check **Save to**.
+
+If it is not set to `~/Screenshots`, change it there.
+
+> Note: `defaults read com.apple.screencapture location` may return empty even when
+> configured via the GUI on newer macOS. Trust the GUI value.
+
+### Ubuntu — sync from Mac
+
+See [docs/mac-sync-setup.md](docs/mac-sync-setup.md) for sync configuration (SynologyDrive, rsync, Syncthing, etc.).
 
 ## Quick Start
 
@@ -32,6 +46,11 @@ Any `git pull` in this repository immediately updates the skill for all CLIs.
 /shot extract the code
 /shot what should I click next?
 ```
+
+### Gemini CLI note
+
+`/shot` works in **interactive mode**. Launch `gemini` from your home directory and type `/shot`.
+The `-p` (headless) mode has tool restrictions that prevent shell execution and file access outside the workspace.
 
 ## Supported CLIs
 
